@@ -1,0 +1,37 @@
+#include <iostream>
+#include <chrono>
+#include <math.h>
+using namespace std;
+
+int main(){
+    
+    int matrixOrder;
+    cin >> matrixOrder;
+    double execTimes [10], execTime;
+    std::chrono::system_clock::time_point initTime, finalTime;
+    std::chrono::duration<double> elapsedTime;
+    for(int test = 0; test <= 10; test++){
+        initTime = std::chrono::high_resolution_clock::now();
+        for (int i = 0; i <= matrixOrder; i++){
+            for (int j = 0; j <= matrixOrder; j++ ){
+                int total = 0;
+                for (int k = 0; k <= matrixOrder; k++ ){
+                    total = total + 1 * 2;
+                }
+            }
+        }
+        finalTime = std::chrono::high_resolution_clock::now();
+        elapsedTime = finalTime - initTime;
+        execTimes[test] = elapsedTime.count();
+    }
+    execTime = 0;
+    for (int o = 0; o <= 10; o++){
+        execTime = execTime + execTimes[o];
+    }
+    execTime = execTime / 10.0; // This is the execution time of the product of the 
+                                // two matrices. 
+    execTime = execTime / (2*pow(matrixOrder,3) - pow(matrixOrder,2)); // This is the execution time of a single arithmetic
+                                                                       // operation. There are 2n^3-n^2 of those involved 
+                                                                       // in the product of two n-order matrices.
+    cout << "The execTime of a single arithmetic operation involved in \n the process of multiplying two matrices is... "<<execTime;
+}
