@@ -1,0 +1,23 @@
+#include <iostream>
+using namespace std;
+
+int counter = 0;
+unsigned long firstTerm = 0, secondTerm = 1, auxiliary; // Fix the daya type as you like.
+int main(){
+   while( secondTerm >= firstTerm ){
+        auxiliary = secondTerm;
+        secondTerm += firstTerm;
+        firstTerm = auxiliary;
+        counter++;
+   }
+   cout<<counter;
+}
+
+/*
+short: 23.
+int: 46.
+long: 92.
+unsigned short: 24.
+unsigned int: 47.
+unsigned long: 93.
+*/
