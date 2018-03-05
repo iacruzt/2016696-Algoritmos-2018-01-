@@ -1,15 +1,17 @@
+pimport java.util.Arrays;
+
 public class MatrixProduct {
 
     // Method to multiply matrices. The result isn't returned.
-    public static void matrixProduct( int[][] matrixA, int[][] matrixB ) {
+    public static void matrixProduct(int[][] matrixA, int[][] matrixB) {
         int numRowsA = matrixA.length;
         int numRowsB = matrixB.length;
         int numColsB = matrixB[0].length;
         int[][] matrixC = new int[numRowsA][numColsB];
-        for( int i = 0; i < numRowsA; i++ ) {
-            for( int j = 0; j < numColsB; j++ ) {
+        for (int i = 0; i < numRowsA; i++) {
+            for (int j = 0; j < numColsB; j++) {
                 int total = 0;
-                for( int k = 0; k < numRowsB; k++ ) {
+                for (int k = 0; k < numRowsB; k++) {
                     total = total + matrixA[i][k] * matrixB[k][j];
                 }
                 matrixC[i][j] = total;
@@ -19,55 +21,42 @@ public class MatrixProduct {
 
     // Return the exec. Time taken  to multiply 2 squared matrices of matrixOrder order, the first full of 1's and
     // the second full of 2's. Time is returned in seconds, and we take it 10 times and finally return the avg.
-    public static double measureMatrixProductAlg( int matrixOrder ){
+    public static double measureMatrixProductAlg(int matrixOrder) {
         long initTime, finalTime;
         long[] executionTimes = new long[10];
-        for( int g = 0; g < 10; g++ ) {
-            initTime = System.nanoTime( );
-            for( int i = 0; i < matrixOrder; i++ ) {
-                for( int j = 0; j < matrixOrder; j++ ) {
+        for (int g = 0; g < 10; g++) {
+            initTime = System.nanoTime();
+            for (int i = 0; i < matrixOrder; i++) {
+                for (int j = 0; j < matrixOrder; j++) {
                     int total = 0;
-                    for( int k = 0; k < matrixOrder; k++ ) {
+                    for (int k = 0; k < matrixOrder; k++) {
                         total = total + 1 * 2;
                     }
                 }
             }
-            finalTime = System.nanoTime( );
+            finalTime = System.nanoTime();
             executionTimes[g] = finalTime - initTime;
         }
 
         long sum = 0;
-        for( long executionTime : executionTimes ){
+        for (long executionTime : executionTimes) {
             sum += executionTime;
         }
 
-        return sum/10000000000.0; // nano = 10^9, and 10 more to take the avg.
+        return sum / 10000000000.0; // nano = 10^9, and 10 more to take the avg.
     }
 
-    public static void main( String[] args  ) {
+    public static void main(String[] args) {
         int matrixOrder = 100;
         // This will print measureMatrixProductAlg (above described) for matrices of matrixOrder(the rigiht above variable) DIVIDED by the number
         // of arithmetical operations involved in the execution of the product, which is given by 2n^3 - n^2.
-        System.out.println( measureMatrixProductAlg( matrixOrder )/(2*Math.pow(matrixOrder,3)-Math.pow(matrixOrder,2)));
-    }
-}
-            }
-            finalTime = System.nanoTime( );
-            executionTimes[g] = finalTime - initTime;
+        System.out.println(measureMatrixProductAlg(matrixOrder) / (2 * Math.pow(matrixOrder, 3) - Math.pow(matrixOrder, 2)));
+
+        double execTimes [] = new double[100];
+        for (matrixOrder=1;matrixOrder<101;matrixOrder++){
+            execTimes[matrixOrder-1] = measureMatrixProductAlg(matrixOrder) / (2 * Math.pow(matrixOrder, 3) - Math.pow(matrixOrder, 2));
         }
+        System.out.println(Arrays.toString(execTimes));
 
-        long sum = 0;
-        for( long executionTime : executionTimes ){
-            sum += executionTime;
-        }
-
-        return sum/10000000000.0; // nano = 10^9, and 10 more to take the avg.
-    }
-
-    public static void main( String[] args  ) {
-        int matrixOrder = 100;
-        // This will print measureMatrixProductAlg (above described) for matrices of matrixOrder(the rigiht above variable) DIVIDED by the number
-        // of arithmetical operations involved in the execution of the product, which is given by 2n^3 - n^2. 
-        System.out.println( measureMatrixProductAlg( matrixOrder )/(2*Math.pow(matrixOrder,3)-Math.pow(matrixOrder,2)));
     }
 }
